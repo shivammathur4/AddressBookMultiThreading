@@ -13,7 +13,8 @@ namespace AddressBookMultiThreading
             Console.WriteLine("Hello, Welcome to Address Book Multi Threading!");
             AddressBookRepository repository = new AddressBookRepository();
             repository.RetrieveAllContactDetails();
-            Console.WriteLine(repository.UpdateExistingContactUsingByName("Akhilesh", "Roy", "Akhilesh@gmail.com") ? "Updated Succesfully" : "Updated Failed");
+           // Console.WriteLine(repository.UpdateExistingContactUsingByName("Akhilesh", "Roy", "Akhilesh@gmail.com") ? "Updated Succesfully" : "Updated Failed");
+            repository.RetrieveAllTheContactAddedInBetweenADate(Convert.ToDateTime("5/12/2018"));
         }
     }
 }

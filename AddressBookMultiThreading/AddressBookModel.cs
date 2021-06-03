@@ -18,5 +18,6 @@ namespace AddressBookMultiThreading
         public string EmailId { get; set; }
         public string AddressBookType { get; set; }
         public string AddressBookName { get; set; }
+        public DateTime DateOfEntry { get; set; }
     }
 }
