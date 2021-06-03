@@ -10,7 +10,7 @@ namespace AddressBookMultiThreading
     public class AddressBookRepository
     {
         public static SqlConnection connection { get; set; }
-        
+       
         public void RetrieveAllContactDetails()
         {
             DBConnection dbc = new DBConnection();
@@ -48,6 +48,41 @@ namespace AddressBookMultiThreading
                         Console.WriteLine("No data found");
                     }
                     reader.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+        
+        public bool UpdateExistingContactUsingByName(string FirstName, string LastName, string EmailId)
+        {
+            DBConnection dbc = new DBConnection();
+            connection = dbc.GetConnection();
+            try
+            {
+                using (connection)
+                {
+                    connection.Open();
+                    string query = @"update dbo.Address_Book set Email = @parameter1
+                    where FirstName = @parameter2 and LastName = @parameter3";
+                    SqlCommand command = new SqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@parameter1", EmailId);
+                    command.Parameters.AddWithValue("@parameter2", FirstName);
+                    command.Parameters.AddWithValue("@parameter3", LastName);
+                    var result = command.ExecuteNonQuery();
+                    connection.Close();
+                    if (result > 0)
+                    {
+                        return true;
+                    }
+                    return false;
                 }
             }
             catch (Exception ex)
